@@ -1,0 +1,29 @@
+<div
+  class="h-100vh pt-50 pb-50"
+  [class.component-dark-theme]="themeService.isDark()"
+  [class.card-borderd-theme]="themeService.isCardBorder()"
+  [class.card-border-radius]="themeService.isCardBorderRadius()"
+>
+  <div class="d-table">
+    <div class="d-table-cell">
+      <div
+        class="logout-box text-center bg-white border-radius ms-auto me-auto"
+      >
+        <div class="d-flex justify-content-center mb-10 logo">
+          <img src="assets/img/white-logo-icon.png" alt="logo-icon" />
+        </div>
+        <img src="assets/img/icon/coffee.png" alt="coffee" />
+        <h5 class="fw-semibold mb-12">You are Logged Out</h5>
+        <p>
+          Thank you for using <span class="fw-semibold">Asharah</span> admin
+        </p>
+        <a
+          mat-flat-button
+          class="tagus d-block fw-semibold"
+          routerLink="/authentication/login"
+          >Sign In</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

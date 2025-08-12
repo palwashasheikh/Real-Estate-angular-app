@@ -1,0 +1,122 @@
+<div class="row" [class.component-rtl-enabled]="themeService.isRTLEnabled()">
+  <div
+    class="col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4"
+    *ngFor="let property of properties"
+  >
+    <mat-card class="mb-25 p-property-card tagus-card">
+      <mat-card-header>
+        <div class="d-flex align-items-center">
+          <img
+            src="{{ property.media[0] }}"
+            width="100"
+            [alt]="'assets/img/user/user12.jpg'"
+          />
+          <div class="title ms-15">
+            <h5 class="mb-5">{{ property.title.en }}</h5>
+            <span
+              class="badge-{{
+                property.status == 'HIDDEN' ? 'danger' : 'success'
+              }}"
+              >{{ property.status }}</span
+            >
+          </div>
+        </div>
+        <button
+          type="button"
+          mat-button
+          class="position-relative dot-btn p-0 border-none"
+          [matMenuTriggerFor]="monthMenu"
+        >
+          <i class="ri-more-fill"></i>
+        </button>
+        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before">
+          <!--<mat-checkbox
+            value="{{ property.id }}"
+            (change)="this.addToChecked($event)"
+            class="fm-checkbox"
+          ></mat-checkbox>-->
+          <!--<button
+            routerLink="/property-management/update/{{ property.id }}"
+            mat-menu-item
+            type="button"
+            class="bg-transparent border-none position-relative"
+          >
+            <i class="ri-edit-line"></i> Edit
+          </button>-->
+          <button
+            (click)="
+              this.deleteProperties(property, property.isActive ? false : true)
+            "
+            mat-menu-item
+            type="button"
+            class="bg-transparent border-none position-relative"
+          >
+            <i
+              class="ri-{{ property.isActive ? 'delete-bin' : 'play' }}-line"
+            ></i>
+            {{ property.isActive ? "DELETE" : "ACTIVATE" }}
+          </button>
+          <button
+            *ngIf="property.status == 'PUBLISH'"
+            (click)="this.UpdateStatus(property, 'HIDDEN')"
+            mat-menu-item
+            type="button"
+            class="bg-transparent border-none position-relative"
+          >
+            <i class="ri-eye-off-line"></i> Hide
+          </button>
+          <button
+            *ngIf="property.status == 'HIDDEN'"
+            (click)="this.UpdateStatus(property, 'PUBLISH')"
+            mat-menu-item
+            type="button"
+            class="bg-transparent border-none position-relative"
+          >
+            <i class="ri-eye-line"></i> Show
+          </button>
+        </mat-menu>
+      </mat-card-header>
+      <mat-card-content>
+        <h5 class="mb-8">Information</h5>
+        <span *ngIf="!property.isActive" class="badge-danger"
+          >DEACTIVATED
+        </span>
+        <p>
+          <span
+            >{{ property.location.city }} | {{ property.location.district }} |
+            {{ property.location.country }} |
+          </span>
+          <span *ngFor="let item of property.propertyDetails">
+            {{ item.title.en }} |</span
+          >
+          <span *ngIf="property.user">
+            By
+            {{
+              property?.user?.fullName ||
+                property?.user?.phoneNumber ||
+                "No Name"
+            }}
+          </span>
+        </p>
+        <h5 class="mb-8">Details</h5>
+        <p>
+          <span *ngIf="property?.size?.areaSizeSQM"
+            >Area Size: <b>{{ property.size.areaSizeSQM }} SQM</b> |
+          </span>
+          <span *ngIf="property?.prices?.totalPropertyPrice"
+            >Price: <b>{{ property.prices.totalPropertyPrice }}</b> |
+          </span>
+          <span *ngIf="property.agreementNumber"
+            >Agreement FAL: <b>{{ property.agreementNumber }}</b> |
+          </span>
+          <span *ngIf="property.falNumber"
+            >FAL: <b>{{ property.falNumber }}</b> |
+          </span>
+          <span
+            >Created: <b>{{ property.createdAt | date }}</b>
+          </span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

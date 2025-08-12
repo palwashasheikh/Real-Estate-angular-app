@@ -1,0 +1,97 @@
+.badge-success{
+    background-color: #00ff94;
+    border-radius: 5px;
+    color: black;
+    padding: 5px;
+    font-size: 12px;
+}
+.badge-danger{
+    background-color: #9c0000;
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    padding: 5px;
+    font-size: 12px;
+}
+.btn-box {
+    margin-top: 25px;
+
+    button, a {
+        padding: 10px 18px 11px !important;
+        font: {
+            weight: 600 !important;
+            size: 14px !important;
+        };
+    }
+    a {
+        margin-right: 8px;
+    }
+    button {
+        margin-left: 8px;
+    }
+}
+.list {
+    list-style-type: none;
+    margin-top: 30px;
+    padding: {
+        left: 0;
+        right: 0;
+    };
+    li {
+        span {
+            &:nth-child(2) {
+                margin-top: 5px;
+                font-size: 20px;
+            }
+        }
+    }
+}
+.component-rtl-enabled {
+    .btn-box {
+        a {
+            margin: {
+                right: 0;
+                left: 8px;
+            };
+        }
+        button {
+            margin: {
+                left: 0;
+                right: 8px;
+            };
+        }
+    }
+}
+
+@media only screen and (max-width : 767px) {
+
+    .btn-box {
+        margin-top: 15px;
+    }
+    .list {
+        margin-top: 15px;
+        padding: {
+            left: 0;
+            right: 0;
+        };
+        li {
+            span {
+                &:nth-child(2) {
+                    font-size: 17px;
+                    margin-top: 5px;
+                }
+            }
+        }
+    }
+
+}
+
+@media only screen and (min-width: 1600px) {
+
+    .list {
+        padding: {
+            left: 20px;
+            right: 20px;
+        };
+    }
+
+}

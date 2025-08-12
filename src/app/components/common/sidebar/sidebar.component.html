@@ -1,0 +1,214 @@
+<div
+  class="sidebar-area bg-white box-shadow"
+  [ngClass]="{ active: isToggled }"
+  [class.dark-sidebar]="themeService.isSidebarDark()"
+  [class.right-sidebar]="themeService.isRightSidebar()"
+  [class.hide-sidebar]="themeService.isHideSidebar()"
+>
+  <div class="logo bg-white">
+    <a routerLink="/" class="d-flex align-items-center">
+      <img width="70%" src="assets/img/white-logo-icon.png" alt="logo" />
+    </a>
+  </div>
+  <div class="burger-menu" (click)="toggle()" [ngClass]="{ active: isToggled }">
+    <span class="top-bar"></span>
+    <span class="middle-bar"></span>
+    <span class="bottom-bar"></span>
+  </div>
+  <ng-scrollbar visibility="hover" style="height: 100vh">
+    <div class="sidebar-inner">
+      <div class="sidebar-menu">
+        <mat-accordion *ngIf="this.admin?.role?.name == 'admin'">
+          <span class="sub-title gray-color">Detail Reports</span>
+          <a
+            routerLink="/dashboard"
+            class="sidebar-menu-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="flaticon-bar-chart"></i>
+            <span class="title">Dashboard</span>
+          </a>
+          <span class="sub-title gray-color">App Features</span>
+          <!--<a
+            routerLink="/admin-management"
+            class="sidebar-menu-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="flaticon-user"></i>
+            <span class="title">Admins</span>
+          </a>-->
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = true"
+            class="mb-5"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="flaticon-people"></i>
+                <span class="title">Users</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="sidebar-sub-menu">
+              <!--<li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/player-management/add"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Add Player
+                </a>
+              </li>-->
+              <li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/user-management"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Listing
+                </a>
+              </li>
+            </ul>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = true"
+            class="mb-5"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="flaticon-layer"></i>
+                <span class="title">Properties</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="sidebar-sub-menu">
+              <!--<li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/team-management/add"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Add Team
+                </a>
+              </li>-->
+              <li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/property-management"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Listing
+                </a>
+              </li>
+            </ul>
+          </mat-expansion-panel>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = true"
+            class="mb-5"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="flaticon-award-symbol"></i>
+                <span class="title">Misleading Reports</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="sidebar-sub-menu">
+              <li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/misleading-reports"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Listing
+                </a>
+              </li>
+            </ul>
+          </mat-expansion-panel>
+
+          <!--<mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = true"
+            class="mb-5"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <i class="flaticon-award-symbol"></i>
+                <span class="title">Matches</span>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ul class="sidebar-sub-menu">
+              <li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/match-management/add"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Add New Match
+                </a>
+              </li>
+              <li class="sidemenu-item mb-5">
+                <a
+                  routerLink="/match-management"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="sidemenu-link"
+                >
+                  Match Listing
+                </a>
+              </li>
+            </ul>
+          </mat-expansion-panel>
+          <a
+            routerLink="/video-management"
+            class="sidebar-menu-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="flaticon-play"></i>
+            <span class="title">Videos</span>
+          </a>
+          <a
+            routerLink="/sponsor-management"
+            class="sidebar-menu-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="flaticon-pie-chart-6"></i>
+            <span class="title">Sponsors</span>
+          </a>
+          <a
+            routerLink="/notifications"
+            class="sidebar-menu-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="flaticon-bell"></i>
+            <span class="title">Notifications</span>
+          </a>-->
+        </mat-accordion>
+        <!--<mat-accordion *ngIf="this.admin?.role?.name == 'coordinator'">
+          <span class="sub-title gray-color">Match Management</span>
+          <a
+            routerLink="/match-management/view/{{
+              this.admin?.role?.permission
+            }}"
+            class="sidebar-menu-link"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+          >
+            <i class="flaticon-bar-chart"></i>
+            <span class="title">Allocated Match</span>
+          </a>
+        </mat-accordion>-->
+      </div>
+    </div>
+  </ng-scrollbar>
+</div>

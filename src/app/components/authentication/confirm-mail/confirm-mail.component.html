@@ -1,0 +1,30 @@
+<div
+  class="h-100vh pt-50 pb-50"
+  [class.component-dark-theme]="themeService.isDark()"
+  [class.card-borderd-theme]="themeService.isCardBorder()"
+  [class.card-border-radius]="themeService.isCardBorderRadius()"
+>
+  <div class="d-table">
+    <div class="d-table-cell">
+      <div
+        class="logout-box text-center bg-white border-radius ms-auto me-auto"
+      >
+        <div class="logo">
+          <img src="assets/img/logo.png" alt="logo" />
+        </div>
+        <div class="logo white-logo">
+          <img src="assets/img/white-logo.png" alt="logo" />
+        </div>
+        <img src="assets/img/icon/mail.png" alt="mail" />
+        <h5 class="fw-semibold mb-12">Success !</h5>
+        <p>
+          A email has been send to hello@tagus.com. Please check for an email
+          from company and click on the included link to reset your password.
+        </p>
+        <a mat-flat-button class="tagus d-block fw-semibold" routerLink="/"
+          >Back To Home</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

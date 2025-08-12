@@ -1,0 +1,15 @@
+<ul *ngIf="this.activatePagination()" class="pagination">
+  <li class="page-item" [class.disable]="!this.hasPreviousPage()">
+    <a class="page-link" (click)="change(this.paginator?.prevPage)">Previous</a>
+  </li>
+  <li
+    *ngFor="let page of this.pages"
+    [class.active]="this.isPageActive(page)"
+    class="page-item"
+  >
+    <a (click)="change(page)" class="page-link">{{ page }}</a>
+  </li>
+  <li class="page-item" [class.disable]="!this.hasNextPage()">
+    <a class="page-link" (click)="change(this.paginator?.nextPage)">Next</a>
+  </li>
+</ul>

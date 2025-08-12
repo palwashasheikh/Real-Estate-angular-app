@@ -1,0 +1,30 @@
+<mat-card class="mb-25 tagus-card">
+  <mat-card-header class="border-bottom">
+    <h5 class="mb-0">Monthly Statistics</h5>
+    <!--<button type="button" mat-button class="position-relative btn bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+            This Week
+        </button>
+        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before">
+            <button mat-menu-item type="button" class="bg-transparent border-none">This Month</button>
+            <button mat-menu-item type="button" class="bg-transparent border-none">This Year</button>
+            <button mat-menu-item type="button" class="bg-transparent border-none">All Time</button>
+        </mat-menu>-->
+  </mat-card-header>
+  <mat-card-content>
+    <div class="chart yourProgressChart">
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!"
+        [stroke]="chartOptions.stroke!"
+        [tooltip]="chartOptions.tooltip!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [legend]="chartOptions.legend!"
+        [grid]="chartOptions.grid!"
+        [yaxis]="chartOptions.yaxis!"
+        [title]="chartOptions.title!"
+        [colors]="chartOptions.colors!"
+      ></apx-chart>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,40 @@
+<mat-card
+  class="mb-25 tagus-card top-students-box"
+  [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+  <mat-card-header class="border-bottom">
+    <h5 class="mb-0">Top Users</h5>
+    <!--<button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none" [matMenuTriggerFor]="monthMenu">
+            <i class="ri-more-fill"></i>
+        </button>
+        <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before">
+            <button mat-menu-item type="button" class="bg-transparent border-none">Today</button>
+            <button mat-menu-item type="button" class="bg-transparent border-none">Last Month</button>
+            <button mat-menu-item type="button" class="bg-transparent border-none">Last Year</button>
+            <button mat-menu-item type="button" class="bg-transparent border-none">All Time</button>
+        </mat-menu>-->
+  </mat-card-header>
+  <mat-card-content>
+    <div class="students-list d-flex flex-wrap">
+      <div
+        class="list-item"
+        *ngFor="let player of this.dashboard?.data?.topPlayers"
+      >
+        <div class="box border-radius bg-gray d-flex align-items-center">
+          <img
+            src="{{ player.picture }}"
+            [alt]="'assets/img/user/user15.jpg'"
+            class="rounded-circle"
+            alt="user"
+          />
+          <div class="info">
+            <h5>
+              {{ player.fullName || player.phoneNumber || "N/A" }}
+            </h5>
+            <span class="d-block muted-color">Rating: {{ player.rating }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

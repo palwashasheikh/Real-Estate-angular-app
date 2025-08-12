@@ -1,0 +1,475 @@
+<div
+  class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+  <h5 class="mb-0">
+    {{ this.user ? "Update Player" : "Add New Player" }}
+  </h5>
+  <ol class="breadcrumb mb-0 ps-0">
+    <li class="breadcrumb-item">
+      <a routerLink="/dashboard">
+        <i class="ri-home-8-line"></i>
+        Dashboard
+      </a>
+    </li>
+    <li class="breadcrumb-item">
+      <a routerLink="/player-management">
+        <i class="ri-user-line"></i>
+        Users
+      </a>
+    </li>
+    <li class="breadcrumb-item fw-semibold">
+      {{ this.user ? "Update Player" : "Add New Player" }}
+    </li>
+  </ol>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <mat-card class="mb-25 create-project-card tagus-card">
+      <mat-card-content>
+        <form [formGroup]="playerForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div
+              class="col-lg-12 col-md-12 col-sm-12"
+              *ngIf="this.imageChangedEvent"
+            >
+              <image-cropper
+                [imageChangedEvent]="imageChangedEvent"
+                format="png"
+                [maintainAspectRatio]="false"
+                [aspectRatio]="1 / 1"
+                [maintainAspectRatio]="true"
+                (imageCropped)="imageCropped($event)"
+              ></image-cropper>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Profile Picture</label
+              >
+              <input type="file" (change)="this.onPictureChange($event)" />
+              <ng-container
+                *ngIf="
+                  playerForm?.get('picture')?.invalid &&
+                  (playerForm.get('picture')?.dirty ||
+                    playerForm.get('picture')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['picture'].errors.required"
+                  >Picture is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Phone Number</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-edit-2-line"></i>
+                <mat-label>Write Player Phone Number</mat-label>
+                <input matInput formControlName="phoneNumber" />
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('phoneNumber')?.invalid &&
+                  (playerForm.get('phoneNumber')?.dirty ||
+                    playerForm.get('phoneNumber')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['phoneNumber'].errors.required"
+                  >Phone Number is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Full Name</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-edit-2-line"></i>
+                <mat-label>Write Player Name</mat-label>
+                <input matInput formControlName="fullName" />
+                <ng-container
+                  *ngIf="
+                    playerForm?.get('fullName')?.invalid &&
+                    (playerForm.get('fullName')?.dirty ||
+                      playerForm.get('fullName')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="playerForm.controls['fullName'].errors.required"
+                    >Full Name is required.</span
+                  >
+                </ng-container>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Nick Name</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-edit-2-line"></i>
+                <mat-label>Write Nick Name</mat-label>
+                <input matInput formControlName="nickName" />
+                <ng-container
+                  *ngIf="
+                    playerForm?.get('fullName')?.valid &&
+                    playerForm?.get('nickName')?.invalid &&
+                    (playerForm.get('nickName')?.dirty ||
+                      playerForm.get('nickName')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="playerForm.controls['nickName'].errors.required"
+                    >Nick Name is required.</span
+                  >
+                </ng-container>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Date Of Birth</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-calendar-line"></i>
+                <mat-label>Write Date Of Birth</mat-label>
+                <input matInput type="date" formControlName="dateOfBirth" />
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('nickName')?.valid &&
+                  playerForm?.get('dateOfBirth')?.invalid &&
+                  (playerForm.get('dateOfBirth')?.dirty ||
+                    playerForm.get('dateOfBirth')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['dateOfBirth'].errors.required"
+                  >Date Of Birth is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color">Gender</label>
+              <mat-form-field appearance="fill">
+                <mat-label>Gender</mat-label>
+                <i class="ri-edit-2-line"></i>
+                <mat-select formControlName="isMale">
+                  <mat-option value="true">Male</mat-option>
+                  <mat-option value="false">Female</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('dateOfBirth')?.valid &&
+                  playerForm?.get('isMale')?.invalid &&
+                  (playerForm.get('isMale')?.dirty ||
+                    playerForm.get('isMale')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['isMale'].errors.required"
+                  >Gender is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Special Foot</label
+              >
+              <mat-form-field appearance="fill">
+                <mat-label>Special Foot</mat-label>
+                <i class="ri-edit-2-line"></i>
+                <mat-select formControlName="specialFoot">
+                  <mat-option value="LEFT">Left</mat-option>
+                  <mat-option value="RIGHT">Right</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('isMale')?.valid &&
+                  playerForm?.get('specialFoot')?.invalid &&
+                  (playerForm.get('specialFoot')?.dirty ||
+                    playerForm.get('specialFoot')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['specialFoot'].errors.required"
+                  >Special Foot is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Position Short Form</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-edit-2-line"></i>
+                <mat-label>Select Position in short form: ST</mat-label>
+                <mat-select formControlName="shortPosition">
+                  <mat-option value="ST">ST</mat-option>
+                  <mat-option value="CM">CM</mat-option>
+                  <mat-option value="LM">LM</mat-option>
+                  <mat-option value="RM">RM</mat-option>
+                  <mat-option value="CAM">CAM</mat-option>
+                  <mat-option value="CDM">CDM</mat-option>
+                  <mat-option value="CB">CB</mat-option>
+                  <mat-option value="LB">LB</mat-option>
+                  <mat-option value="RB">RB</mat-option>
+                  <mat-option value="RW">RW</mat-option>
+                  <mat-option value="GK">GK</mat-option>
+                </mat-select>
+                <ng-container
+                  *ngIf="
+                    playerForm?.get('specialFoot')?.valid &&
+                    playerForm?.get('shortPosition')?.invalid &&
+                    (playerForm.get('shortPosition')?.dirty ||
+                      playerForm.get('shortPosition')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="playerForm.controls['shortPosition'].errors.required"
+                    >Short Position is required.</span
+                  >
+                </ng-container>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Position Full Form</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-edit-2-line"></i>
+                <mat-label
+                  >Select Position in full form: Midfielder Center</mat-label
+                >
+                <mat-select formControlName="position">
+                  <mat-option value="MIDFIELD-CENTER"
+                    >MIDFIELD-CENTER</mat-option
+                  >
+                  <mat-option value="STRIKER">STRIKER</mat-option>
+                  <mat-option value="CENTER-MIDFIELDER"
+                    >CENTER-MIDFIELDER</mat-option
+                  >
+                  <mat-option value="LEFT-MIDFIELDER"
+                    >LEFT-MIDFIELDER</mat-option
+                  >
+                  <mat-option value="RIGHT-MIDFIELDER"
+                    >RIGHT-MIDFIELDER</mat-option
+                  >
+                  <mat-option value="CENTRAL-ATTACKING-MIDFIELDER"
+                    >CENTRAL-ATTACKING-MIDFIELDER</mat-option
+                  >
+                  <mat-option value="CENTRAL-DEFENDER-MIDFIELDER"
+                    >CENTRAL-DEFENDER-MIDFIELDER</mat-option
+                  >
+                  <mat-option value="CENTRAL-BACK">CENTRAL-BACK</mat-option>
+                  <mat-option value="LEFT-BACK">LEFT-BACK</mat-option>
+                  <mat-option value="RIGHT-BACK">RIGHT-BACK</mat-option>
+                  <mat-option value="RIGHT-WING">RIGHT-WING</mat-option>
+                  <mat-option value="GOAL-KEEPER">GOAL-KEEPER</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('shortPosition')?.valid &&
+                  playerForm?.get('position')?.invalid &&
+                  (playerForm.get('position')?.dirty ||
+                    playerForm.get('position')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['position'].errors.required"
+                  >Position is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color">Height</label>
+              <mat-form-field appearance="fill">
+                <i class="ri-hashtag"></i>
+                <mat-label>Height</mat-label>
+                <input
+                  matInput
+                  formControlName="height"
+                  type="number"
+                  step="0.01"
+                />
+                <ng-container
+                  *ngIf="
+                    playerForm?.get('position')?.valid &&
+                    playerForm?.get('height')?.invalid &&
+                    (playerForm.get('height')?.dirty ||
+                      playerForm.get('height')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="playerForm.controls['height'].errors.required"
+                    >Height is required.</span
+                  >
+                </ng-container>
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color">Weight</label>
+              <mat-form-field appearance="fill">
+                <i class="ri-hashtag"></i>
+                <mat-label>Weight</mat-label>
+                <input
+                  matInput
+                  formControlName="weight"
+                  type="number"
+                  step="0.01"
+                />
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('height')?.valid &&
+                  playerForm?.get('weight')?.invalid &&
+                  (playerForm.get('weight')?.dirty ||
+                    playerForm.get('weight')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['weight'].errors.required"
+                  >Weight is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Top Speed</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-hashtag"></i>
+                <mat-label>Top Speed</mat-label>
+                <input
+                  matInput
+                  formControlName="topSpeed"
+                  type="number"
+                  step="0.01"
+                />
+              </mat-form-field>
+
+              <ng-container
+                *ngIf="
+                  playerForm?.get('weight')?.valid &&
+                  playerForm?.get('topSpeed')?.invalid &&
+                  (playerForm.get('topSpeed')?.dirty ||
+                    playerForm.get('topSpeed')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['topSpeed'].errors.required"
+                  >Top Speed is required.</span
+                >
+              </ng-container>
+            </div>
+
+            <h4 *ngIf="this.activeAttributes?.attributes">Attributes</h4>
+
+            <div
+              class="col-lg-12 col-md-12 col-sm-12"
+              *ngIf="this.activeAttributes?.attributes"
+            >
+              <label class="d-block mb-12 fw-semibold gray-color"></label>
+              <mat-form-field appearance="fill">
+                <i class="ri-hashtag"></i>
+                <mat-label>Player Level</mat-label>
+                <input matInput formControlName="level" type="text" />
+              </mat-form-field>
+
+              <ng-container
+                *ngIf="
+                  playerForm?.get('level')?.invalid &&
+                  (playerForm.get('level')?.dirty ||
+                    playerForm.get('level')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['level'].errors.required"
+                  >level is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-12 row" formArrayName="attributes">
+              <div
+                class="col-lg-4 col-md-4 col-sm-4"
+                *ngFor="
+                  let item of playerForm.get('attributes')['controls'];
+                  let i = index
+                "
+                [formGroupName]="i"
+              >
+                <div>
+                  <label class="d-block mb-12 fw-semibold gray-color">
+                    <input
+                      class="disabled-field"
+                      matInput
+                      formControlName="label"
+                      readonly=""
+                    />
+                  </label>
+                  <mat-form-field appearance="fill">
+                    <i class="ri-hashtag"></i>
+                    <mat-label>Level</mat-label>
+                    <input matInput formControlName="progress" />
+                  </mat-form-field>
+                  <mat-form-field appearance="fill">
+                    <i class="ri-hashtag"></i>
+                    <mat-label>Points</mat-label>
+                    <input matInput formControlName="points" />
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="this.user">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Active/Deactivate</label
+              >
+              <mat-form-field appearance="fill">
+                <mat-label>Active or Deactivate</mat-label>
+                <i class="ri-edit-2-line"></i>
+                <mat-select formControlName="isActive">
+                  <mat-option value="true">Active</mat-option>
+                  <mat-option value="false">Deactivate</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  playerForm?.get('isMale')?.valid &&
+                  playerForm?.get('specialFoot')?.invalid &&
+                  (playerForm.get('specialFoot')?.dirty ||
+                    playerForm.get('specialFoot')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="playerForm.controls['specialFoot'].errors.required"
+                  >Special Foot is required.</span
+                >
+              </ng-container>
+            </div>
+          </div>
+          <button mat-button type="submit" class="default-btn mt-25">
+            {{ this.user ? "Update Player" : "Add New Player" }}
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

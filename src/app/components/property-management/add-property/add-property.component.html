@@ -1,0 +1,500 @@
+<div
+  class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+  <h5 class="mb-0">
+    {{ this.team ? "Update Team" : "Add New Team" }}
+  </h5>
+  <ol class="breadcrumb mb-0 ps-0">
+    <li class="breadcrumb-item">
+      <a routerLink="/dashboard">
+        <i class="ri-home-8-line"></i>
+        Dashboard
+      </a>
+    </li>
+    <li class="breadcrumb-item">
+      <a routerLink="/team-management">
+        <i class="ri-team-line"></i>
+        Teams
+      </a>
+    </li>
+    <li class="breadcrumb-item fw-semibold">
+      {{ this.team ? "Update Team" : "Add New Team" }}
+    </li>
+  </ol>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <mat-card class="mb-25 create-project-card tagus-card">
+      <mat-card-content>
+        <form [formGroup]="teamForm" (ngSubmit)="submit()">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team Owner</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-group-line"></i>
+                <mat-label>Select Owner</mat-label>
+                <mat-select formControlName="user">
+                  <mat-option
+                    *ngFor="let player of this.players?.data?.docs"
+                    [value]="player.id"
+                    >{{
+                      player?.fullName ||
+                        player?.nickName ||
+                        player?.phoneNumber
+                    }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  teamForm?.get('user')?.invalid &&
+                  (teamForm.get('user')?.dirty || teamForm.get('user')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['user'].errors.required"
+                  >Owner is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <image-cropper
+                *ngIf="this.logoChangedEvent"
+                [imageChangedEvent]="logoChangedEvent"
+                [maintainAspectRatio]="false"
+                [aspectRatio]="1 / 1"
+                [maintainAspectRatio]="true"
+                format="png"
+                (imageCropped)="logoCropped($event)"
+              ></image-cropper>
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team Logo</label
+              >
+              <input type="file" (change)="this.onLogoChange($event)" />
+              <ng-container
+                *ngIf="
+                  teamForm?.get('logo')?.invalid &&
+                  (teamForm.get('logo')?.dirty || teamForm.get('logo')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['logo'].errors.required"
+                  >Logo is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mb-25">
+              <image-cropper
+                *ngIf="this.coverChangedEvent"
+                [imageChangedEvent]="coverChangedEvent"
+                [maintainAspectRatio]="false"
+                [aspectRatio]="13 / 5"
+                [maintainAspectRatio]="true"
+                format="png"
+                (imageCropped)="coverCropped($event)"
+              ></image-cropper>
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team Cover</label
+              >
+              <input type="file" (change)="this.onCoverChange($event)" />
+              <ng-container
+                *ngIf="
+                  teamForm?.get('logo')?.valid &&
+                  teamForm?.get('cover')?.invalid &&
+                  (teamForm.get('cover')?.dirty ||
+                    teamForm.get('cover')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['cover'].errors.required"
+                  >Cover is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team Name</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-edit-2-line"></i>
+                <mat-label>Write Team Name</mat-label>
+                <input matInput formControlName="teamName" />
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  teamForm?.get('cover')?.valid &&
+                  teamForm?.get('teamName')?.invalid &&
+                  (teamForm.get('teamName')?.dirty ||
+                    teamForm.get('teamName')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['teamName'].errors.required"
+                  >Team Name is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team City</label
+              >
+              <mat-form-field appearance="fill">
+                <mat-label>Team City</mat-label>
+                <i class="ri-earth-line"></i>
+                <mat-select formControlName="city">
+                  <mat-option value="Jeddah">Jeddah</mat-option>
+                  <mat-option value="Riyadh">Riyadh</mat-option>
+                  <mat-option value="Dahran">Dahran</mat-option>
+                  <mat-option value="Makkah">Makkah</mat-option>
+                  <mat-option value="Madinah">Madinah</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  teamForm?.get('teamName')?.valid &&
+                  teamForm?.get('city')?.invalid &&
+                  (teamForm.get('city')?.dirty || teamForm.get('city')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['city'].errors.required"
+                  >Team City is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team Biography</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-hashtag"></i>
+                <mat-label>Some demo text...</mat-label>
+                <textarea
+                  matInput
+                  rows="6"
+                  formControlName="teamBio"
+                ></textarea>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  teamForm?.get('city')?.valid &&
+                  teamForm?.get('teamBio')?.invalid &&
+                  (teamForm.get('teamBio')?.dirty ||
+                    teamForm.get('teamBio')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['teamBio'].errors.required"
+                  >Team Bio is required.</span
+                >
+              </ng-container>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Team Players</label
+              >
+              <mat-form-field appearance="fill">
+                <i class="ri-group-line"></i>
+                <mat-label>Select Players</mat-label>
+                <mat-select multiple formControlName="players">
+                  <mat-option
+                    *ngFor="let player of this.players?.data?.docs"
+                    [value]="player.id"
+                    >{{
+                      player?.fullName ||
+                        player?.nickName ||
+                        player?.phoneNumber
+                    }}</mat-option
+                  >
+                </mat-select>
+              </mat-form-field>
+              <ng-container
+                *ngIf="
+                  teamForm?.get('teamBio')?.valid &&
+                  teamForm?.get('players')?.invalid &&
+                  (teamForm.get('players')?.dirty ||
+                    teamForm.get('players')?.touched)
+                "
+              >
+                <span
+                  class="error_showing text-danger"
+                  *ngIf="teamForm.controls['players'].errors.required"
+                  >Players is required.</span
+                >
+              </ng-container>
+            </div>
+            <div formGroupName="statistics" class="row">
+              <div formGroupName="matches" class="col-lg-12">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >Total Matches Played</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-hashtag"></i>
+                      <mat-label>Total Played</mat-label>
+                      <input matInput type="number" formControlName="played" />
+                    </mat-form-field>
+                    <ng-container
+                      *ngIf="
+                        teamForm?.get('played')?.invalid &&
+                        (teamForm.get('played')?.dirty ||
+                          teamForm.get('played')?.touched)
+                      "
+                    >
+                      <span
+                        class="error_showing text-danger"
+                        *ngIf="teamForm.controls['played'].errors.required"
+                        >Total Matches Played is required.</span
+                      >
+                    </ng-container>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >Total Matches Won</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-hashtag"></i>
+                      <mat-label>Total Won</mat-label>
+                      <input matInput type="number" formControlName="won" />
+                    </mat-form-field>
+                    <ng-container
+                      *ngIf="
+                        teamForm?.get('won')?.invalid &&
+                        (teamForm.get('won')?.dirty ||
+                          teamForm.get('won')?.touched)
+                      "
+                    >
+                      <span
+                        class="error_showing text-danger"
+                        *ngIf="teamForm.controls['won'].errors.required"
+                        >Total Matches Won is required.</span
+                      >
+                    </ng-container>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >Total Matches Draw</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-hashtag"></i>
+                      <mat-label>Total Draw</mat-label>
+                      <input matInput type="number" formControlName="won" />
+                    </mat-form-field>
+                    <ng-container
+                      *ngIf="
+                        teamForm?.get('draw')?.invalid &&
+                        (teamForm.get('draw')?.dirty ||
+                          teamForm.get('draw')?.touched)
+                      "
+                    >
+                      <span
+                        class="error_showing text-danger"
+                        *ngIf="teamForm.controls['draw'].errors.required"
+                        >Total Matches Draw is required.</span
+                      >
+                    </ng-container>
+                  </div>
+                  <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label class="d-block mb-12 fw-semibold gray-color"
+                      >Total Matches Loss</label
+                    >
+                    <mat-form-field appearance="fill">
+                      <i class="ri-hashtag"></i>
+                      <mat-label>Total Loss</mat-label>
+                      <input matInput type="number" formControlName="loss" />
+                    </mat-form-field>
+                    <ng-container
+                      *ngIf="
+                        teamForm?.get('loss')?.invalid &&
+                        (teamForm.get('loss')?.dirty ||
+                          teamForm.get('loss')?.touched)
+                      "
+                    >
+                      <span
+                        class="error_showing text-danger"
+                        *ngIf="teamForm.controls['loss'].errors.required"
+                        >Total Matches Loss is required.</span
+                      >
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <label class="d-block mb-12 fw-semibold gray-color"
+                  >Total Tournaments</label
+                >
+                <mat-form-field appearance="fill">
+                  <i class="ri-hashtag"></i>
+                  <mat-label>Total Tournaments</mat-label>
+                  <input matInput type="number" formControlName="tournaments" />
+                </mat-form-field>
+                <ng-container
+                  *ngIf="
+                    teamForm?.get('tournaments')?.invalid &&
+                    (teamForm.get('tournaments')?.dirty ||
+                      teamForm.get('tournaments')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="teamForm.controls['tournaments'].errors.required"
+                    >Total Tournaments is required.</span
+                  >
+                </ng-container>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <label class="d-block mb-12 fw-semibold gray-color"
+                  >Total Goals</label
+                >
+                <mat-form-field appearance="fill">
+                  <i class="ri-hashtag"></i>
+                  <mat-label>Total Goals</mat-label>
+                  <input matInput type="number" formControlName="goals" />
+                </mat-form-field>
+                <ng-container
+                  *ngIf="
+                    teamForm?.get('goals')?.invalid &&
+                    (teamForm.get('goals')?.dirty ||
+                      teamForm.get('goals')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="teamForm.controls['goals'].errors.required"
+                    >Total Goals is required.</span
+                  >
+                </ng-container>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <label class="d-block mb-12 fw-semibold gray-color"
+                  >Total Goal Against</label
+                >
+                <mat-form-field appearance="fill">
+                  <i class="ri-hashtag"></i>
+                  <mat-label>Total Goal Against</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    formControlName="goalsAgainst"
+                  />
+                </mat-form-field>
+                <ng-container
+                  *ngIf="
+                    teamForm?.get('goalsAgainst')?.invalid &&
+                    (teamForm.get('goalsAgainst')?.dirty ||
+                      teamForm.get('goalsAgainst')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="teamForm.controls['goalsAgainst'].errors.required"
+                    >Total Goals Against is required.</span
+                  >
+                </ng-container>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <label class="d-block mb-12 fw-semibold gray-color"
+                  >Total Yellow Cards</label
+                >
+                <mat-form-field appearance="fill">
+                  <i class="ri-hashtag"></i>
+                  <mat-label>Total Yellow Cards</mat-label>
+                  <input matInput type="number" formControlName="yellowCards" />
+                </mat-form-field>
+
+                <ng-container
+                  *ngIf="
+                    teamForm?.get('yellowCards')?.invalid &&
+                    (teamForm.get('yellowCards')?.dirty ||
+                      teamForm.get('yellowCards')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="teamForm.controls['yellowCards'].errors.required"
+                    >Total Yellow Card is required.</span
+                  >
+                </ng-container>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <label class="d-block mb-12 fw-semibold gray-color"
+                  >Total Red Cards</label
+                >
+                <mat-form-field appearance="fill">
+                  <i class="ri-hashtag"></i>
+                  <mat-label>Total Red Cards</mat-label>
+                  <input matInput type="number" formControlName="redCards" />
+                </mat-form-field>
+
+                <ng-container
+                  *ngIf="
+                    teamForm?.get('redCards')?.invalid &&
+                    (teamForm.get('redCards')?.dirty ||
+                      teamForm.get('redCards')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="teamForm.controls['redCards'].errors.required"
+                    >Total Red Card is required.</span
+                  >
+                </ng-container>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <label class="d-block mb-12 fw-semibold gray-color"
+                  >Total Clean Sheets</label
+                >
+                <mat-form-field appearance="fill">
+                  <i class="ri-hashtag"></i>
+                  <mat-label>Total Clean Sheets</mat-label>
+                  <input matInput type="number" formControlName="cleanSheets" />
+                </mat-form-field>
+
+                <ng-container
+                  *ngIf="
+                    teamForm?.get('cleanSheets')?.invalid &&
+                    (teamForm.get('cleanSheets')?.dirty ||
+                      teamForm.get('cleanSheets')?.touched)
+                  "
+                >
+                  <span
+                    class="error_showing text-danger"
+                    *ngIf="teamForm.controls['cleanSheets'].errors.required"
+                    >Total Clean Sheets is required.</span
+                  >
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12" *ngIf="this.team">
+              <label class="d-block mb-12 fw-semibold gray-color"
+                >Active/Deactivate</label
+              >
+              <mat-form-field appearance="fill">
+                <mat-label>Active or Deactivate</mat-label>
+                <i class="ri-edit-2-line"></i>
+                <mat-select formControlName="isActive">
+                  <mat-option value="true">Active</mat-option>
+                  <mat-option value="false">Deactivate</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <button mat-button type="submit" class="default-btn mt-25">
+            {{ this.team ? "Update Team" : "Add New Team" }}
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
