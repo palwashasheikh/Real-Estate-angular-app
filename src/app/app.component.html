@@ -1,0 +1,36 @@
+<div class="progress" *ngIf="themeService.isProgress()">
+  <mat-spinner mode="indeterminate"></mat-spinner>
+</div>
+<ngx-ui-loader></ngx-ui-loader>
+<div
+  [ngClass]="{
+    'blank-page':
+      router.url === '/error-500' ||
+      router.url === '/authentication/reset-password' ||
+      router.url === '/authentication/forgot-password' ||
+      router.url === '/authentication/login' ||
+      router.url === '/authentication/register' ||
+      router.url === '/authentication/signin-signup' ||
+      router.url === '/authentication/logout' ||
+      router.url === '/authentication/confirm-mail' ||
+      router.url === '/authentication/lock-screen'
+  }"
+  [class.dark-theme]="themeService.isDark()"
+  [class.card-borderd-theme]="themeService.isCardBorder()"
+  [class.card-border-radius]="themeService.isCardBorderRadius()"
+  [class.rtl-enabled]="themeService.isRTLEnabled()"
+>
+  <app-sidebar></app-sidebar>
+  <div
+    class="main-content d-flex flex-column"
+    [ngClass]="{ active: isToggled }"
+    [class.right-sidebar]="themeService.isRightSidebar()"
+    [class.hide-sidebar]="themeService.isHideSidebar()"
+  >
+    <app-header></app-header>
+    <router-outlet></router-outlet>
+    <div class="flex-grow-1"></div>
+    <app-footer></app-footer>
+  </div>
+  <app-customizer-settings></app-customizer-settings>
+</div>

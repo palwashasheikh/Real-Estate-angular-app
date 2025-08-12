@@ -1,0 +1,50 @@
+<div
+  class="row"
+  [class.component-dark-theme]="themeService.isDark()"
+  [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+  <div class="col-lg-12 col-md-12">
+    <mat-card class="mb-25 tagus-card">
+      <mat-card-content>
+        <div class="members-list-table table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="fw-semibold main-color">Property</th>
+                <th class="fw-semibold gray-color">Reported By</th>
+                <th class="fw-semibold gray-color">Reason</th>
+                <th class="fw-semibold gray-color">Reported At</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of misleadingReports">
+                <td>
+                  <!--<mat-checkbox
+                    value="{{ item.id }}"
+                    (change)="this.addToChecked($event)"
+                    class="fm-checkbox"
+                  ></mat-checkbox>-->
+
+                  <span>Id: {{ item?.property?.id }}<br /></span>
+                  <span>Title: {{ item?.property?.title?.en }}</span>
+                </td>
+                <td class="gray-color">
+                  <span
+                    >Name: {{ item?.user?.fullName || "No Name" }} <br
+                  /></span>
+                  <span>Phone: {{ item?.user?.phoneNumber }}</span>
+                </td>
+                <td class="gray-color">
+                  <span class="fw-medium">{{ item.reason }}</span>
+                </td>
+                <td class="gray-color">
+                  <span class="fw-medium">{{ item.createdAt | date }}</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

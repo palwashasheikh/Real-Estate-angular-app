@@ -1,0 +1,87 @@
+<div
+  class="row"
+  [class.component-dark-theme]="themeService.isDark()"
+  [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+  <div class="col-lg-12 col-md-12">
+    <mat-card class="mb-25 tagus-card">
+      <mat-card-content>
+        <div class="members-list-table table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="fw-semibold main-color">Title</th>
+                <th class="fw-semibold gray-color">Message</th>
+                <th class="fw-semibold gray-color">Type</th>
+                <th class="fw-semibold gray-color">Redirected To</th>
+                <th class="fw-semibold gray-color">Redirection Id</th>
+                <th class="fw-semibold gray-color">Status</th>
+                <th class="fw-semibold gray-color">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of notifications">
+                <td>
+                  <!--<mat-checkbox
+                    value="{{ item.id }}"
+                    (change)="this.addToChecked($event)"
+                    class="fm-checkbox"
+                  ></mat-checkbox>-->
+                  <span>{{ item.title }}</span>
+                </td>
+                <td class="gray-color">
+                  <span>{{ item.message }}</span>
+                </td>
+                <td class="gray-color">
+                  <span class="fw-medium">{{ item.type }}</span>
+                </td>
+
+                <td class="gray-color">
+                  <span class="fw-medium">{{
+                    item.redirectedTo || "N/A"
+                  }}</span>
+                </td>
+                <td class="gray-color">
+                  <span class="fw-medium">{{
+                    item.redirectionId || "N/A"
+                  }}</span>
+                </td>
+
+                <td class="gray-color">
+                  <span
+                    class="badge-{{ item.isActive ? 'success' : 'danger' }}"
+                    >{{ item.isActive ? "ACTIVE" : "DEACTIVATE" }}</span
+                  >
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    mat-button
+                    class="position-relative dot-btn p-0 bg-transparent border-none"
+                    [matMenuTriggerFor]="actionMenu"
+                  >
+                    <i class="ri-more-fill"></i>
+                  </button>
+                  <mat-menu
+                    #actionMenu="matMenu"
+                    class="dotMenu two monthMenu"
+                    xPosition="before"
+                  >
+                    <button
+                      mat-menu-item
+                      type="button"
+                      class="bg-transparent border-none position-relative"
+                      (click)="this.deleteNotifications(item)"
+                    >
+                      <i class="ri-delete-bin-line"></i> Remove
+                    </button>
+                  </mat-menu>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

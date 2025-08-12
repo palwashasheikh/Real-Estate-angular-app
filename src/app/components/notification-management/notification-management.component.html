@@ -1,0 +1,98 @@
+<div
+  class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+  <h3 class="mb-0">Notification Management</h3>
+  <ol class="breadcrumb mb-0 ps-0">
+    <li class="breadcrumb-item">
+      <a routerLink="/dashboard">
+        <i class="ri-home-8-line"></i>
+        Dashboard
+      </a>
+    </li>
+    <li class="breadcrumb-item fw-semibold">Notification Management</li>
+  </ol>
+</div>
+
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayout.sm="column"
+  fxLayout.md="column"
+  fxLayoutGap="25px"
+  fxLayoutGap.xs="0"
+  fxLayoutGap.sm="0"
+  fxLayoutGap.md="0"
+>
+  <div
+    fxFlex="10%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    class="col mb-25"
+    fxLayoutGap="10px"
+  >
+    <button mat-mini-fab color="primary" (click)="this.refresh(true)">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      (click)="this.openSendNotificationDialog('300ms', '100ms')"
+    >
+      <mat-icon>send</mat-icon>
+    </button>
+    <!--<button mat-mini-fab color="warn">
+      <mat-icon>delete</mat-icon>
+    </button>-->
+  </div>
+  <div
+    fxFlex="90%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    class="col mb-25"
+  >
+    <form class="tagus-search-box">
+      <input
+        type="text"
+        class="input-search border-radius"
+        placeholder="Search here"
+        (input)="this.filter($event)"
+      />
+      <button type="submit"><i class="ri-search-line"></i></button>
+    </form>
+  </div>
+</div>
+
+<app-notification-list
+  *ngIf="this.notifications"
+  [notifications]="this.notifications.data.docs"
+></app-notification-list>
+
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayout.sm="column"
+  fxLayout.md="column"
+  fxLayoutGap="25px"
+  fxLayoutGap.xs="0"
+  fxLayoutGap.sm="0"
+  fxLayoutGap.md="0"
+>
+  <div
+    fxFlex="100%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    class="col"
+    fxLayoutAlign="center center"
+  >
+    <nav aria-label="Page navigation example text-center">
+      <app-pagination
+        *ngIf="this.notifications"
+        [paginator]="this.notifications.data"
+        (changePage)="this.getNotifications($event)"
+      ></app-pagination>
+    </nav>
+  </div>
+</div>

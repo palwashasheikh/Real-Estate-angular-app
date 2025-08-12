@@ -1,0 +1,112 @@
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutGap="25px"
+  fxLayoutGap.xs="0"
+  fxLayout.sm="column"
+  fxLayoutGap.sm="0"
+  fxLayout.md="column"
+  fxLayoutGap.md="0"
+  [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+  <div
+    fxFlex="25%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="50%"
+    class="col"
+  >
+    <mat-card class="single-stats-box tagus-card mb-25 position-relative">
+      <div class="d-flex align-items-center">
+        <div class="icon">
+          <i class="flaticon-people"></i>
+        </div>
+        <div class="title">
+          <span class="d-block fw-semibold gray-color">Users</span>
+          <h3>{{ this.dashboard?.data?.users?.toLocaleString() }}</h3>
+          <p>Total Users listed</p>
+        </div>
+      </div>
+      <span class="badge fw-semibold"
+        >{{ this.dashboard?.data?.users?.toLocaleString() }}
+        <i class="flaticon-arrow-up"></i
+      ></span>
+    </mat-card>
+  </div>
+  <div
+    fxFlex="25%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="50%"
+    class="col"
+  >
+    <mat-card class="single-stats-box tagus-card mb-25 position-relative">
+      <div class="d-flex align-items-center">
+        <div class="icon">
+          <i class="flaticon-goal"></i>
+        </div>
+        <div class="title">
+          <span class="d-block fw-semibold gray-color">Properties</span>
+          <h3>{{ this.dashboard?.data?.properties?.toLocaleString() }}</h3>
+          <p>Total Properties listed</p>
+        </div>
+      </div>
+      <span class="badge fw-semibold down"
+        >{{ this.dashboard?.data?.properties?.toLocaleString() }}
+        <i class="flaticon-down-filled-triangular-arrow"></i
+      ></span>
+    </mat-card>
+  </div>
+  <div
+    fxFlex="25%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="50%"
+    class="col"
+  >
+    <mat-card class="single-stats-box tagus-card mb-25 position-relative">
+      <div class="d-flex align-items-center">
+        <div class="icon">
+          <i class="flaticon-timer"></i>
+        </div>
+        <div class="title">
+          <span class="d-block fw-semibold gray-color">Requests</span>
+          <h3>{{ this.dashboard?.data?.requests?.toLocaleString() }}</h3>
+          <p>Total Requests listed</p>
+        </div>
+      </div>
+      <span class="badge fw-semibold"
+        >{{ this.dashboard?.data?.requests?.toLocaleString() }}
+        <i class="flaticon-arrow-up"></i
+      ></span>
+    </mat-card>
+  </div>
+  <div
+    fxFlex="25%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.sm="50%"
+    fxFlex.md="50%"
+    class="col"
+  >
+    <mat-card class="single-stats-box tagus-card mb-25 position-relative">
+      <div class="d-flex align-items-center">
+        <div class="icon">
+          <i class="flaticon-trophy"></i>
+        </div>
+        <div class="title">
+          <span class="d-block fw-semibold gray-color">Misleading Reports</span>
+          <h3>{{ this.dashboard?.data?.reports?.toLocaleString() }}</h3>
+          <p>Misleading Reports listed</p>
+        </div>
+      </div>
+      <span class="badge fw-semibold"
+        >{{ this.dashboard?.data?.reports?.toLocaleString() }}
+        <i class="flaticon-arrow-up"></i
+      ></span>
+    </mat-card>
+  </div>
+</div>

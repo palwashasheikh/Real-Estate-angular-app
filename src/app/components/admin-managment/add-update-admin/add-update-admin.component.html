@@ -1,0 +1,122 @@
+<div class="create-dialog-box scrollable-dialog">
+  <div class="title d-flex align-items-center justify-content-space-between">
+    <h4 class="mb-0">
+      {{ this.data ? "Update " + this.data.fullName : "Create New Admin" }}
+    </h4>
+    <button class="close-btn bg-transparent p-0 border-none" (click)="close()">
+      <i class="flaticon-close"></i>
+    </button>
+  </div>
+  <form [formGroup]="adminForm" (ngSubmit)="submit()">
+    <div class="row">
+      <div class="col-lg-12 col-md-12">
+        <div class="form-group">
+          <label class="d-block fw-semibold">Role</label>
+          <select
+            class="input-control"
+            formControlName="role"
+            #role
+            (change)="getRole(role.value)"
+          >
+            <option value="admin" selected>Admin</option>
+            <option value="coordinator">Coordinator</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12" *ngIf="this?.matches?.data">
+        <div class="form-group">
+          <label class="d-block fw-semibold">Match</label>
+          <select class="input-control" formControlName="permission">
+            <option
+              *ngFor="let match of this?.matches?.data?.docs"
+              value="{{ match.id }}"
+            >
+              {{ match?.tournament?.title }}:
+              {{ match?.teamA?.team?.teamName }} vs
+              {{ match?.teamB?.team?.teamName }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+          <label class="d-block fw-semibold">Full Name</label>
+          <input
+            type="text"
+            class="input-control"
+            placeholder="Full Name"
+            formControlName="fullName"
+          />
+
+          <ng-container
+            *ngIf="
+              adminForm?.get('fullName')?.invalid &&
+              (adminForm.get('fullName')?.dirty ||
+                adminForm.get('fullName')?.touched)
+            "
+          >
+            <span
+              class="error_showing text-danger"
+              *ngIf="adminForm.controls['fullName'].errors.required"
+              >Full Name is required.</span
+            >
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <div class="form-group">
+          <label class="d-block fw-semibold">Email</label>
+          <input
+            type="text"
+            class="input-control"
+            placeholder="email"
+            formControlName="email"
+          />
+
+          <ng-container
+            *ngIf="
+              adminForm?.get('email')?.invalid &&
+              (adminForm.get('email')?.dirty || adminForm.get('email')?.touched)
+            "
+          >
+            <span
+              class="error_showing text-danger"
+              *ngIf="adminForm.controls['email'].errors.required"
+              >Email is required.</span
+            >
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12">
+        <div class="form-group">
+          <label class="d-block fw-semibold">Password</label>
+          <input
+            type="text"
+            class="input-control"
+            placeholder="password"
+            formControlName="password"
+          />
+          <ng-container
+            *ngIf="
+              adminForm?.get('password')?.invalid &&
+              (adminForm.get('password')?.dirty ||
+                adminForm.get('password')?.touched)
+            "
+          >
+            <span
+              class="error_showing text-danger"
+              *ngIf="adminForm.controls['password'].errors.required"
+              >Password is required.</span
+            >
+          </ng-container>
+        </div>
+      </div>
+    </div>
+    <div class="text-end">
+      <button type="button" class="gray" (click)="close()">
+        <i class="ri-close-fill"></i> Cancel
+      </button>
+      <button type="submit"><i class="ri-add-fill"></i>Submit</button>
+    </div>
+  </form>
+</div>

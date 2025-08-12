@@ -1,0 +1,39 @@
+<div
+  class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+  <h3 class="mb-0">Liqa Dashboard</h3>
+</div>
+<app-dashboard-counters [dashboard]="this.dashboard"></app-dashboard-counters>
+
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayout.sm="column"
+  fxLayout.md="column"
+  fxLayoutGap="25px"
+  fxLayoutGap.xs="0"
+  fxLayoutGap.sm="0"
+  fxLayoutGap.md="0"
+>
+  <div
+    fxFlex="66.666666%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    class="col"
+  >
+    <app-graphical-analysis
+      *ngIf="this.dashboard"
+      [stats]="this.dashboard.data.stats"
+    ></app-graphical-analysis>
+  </div>
+  <div
+    fxFlex="33.333333%"
+    fxFlex.xs="100%"
+    fxFlex.sm="100%"
+    fxFlex.md="100%"
+    class="col"
+  >
+    <app-top-players [dashboard]="this.dashboard"></app-top-players>
+  </div>
+</div>

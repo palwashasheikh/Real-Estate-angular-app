@@ -1,0 +1,64 @@
+<div class="row" [class.component-rtl-enabled]="themeService.isRTLEnabled()">
+  <div
+    class="col-sm-2 col-md-2 col-lg-2 col-xl-2 col-xxl-2"
+    *ngFor="let user of users"
+  >
+    <mat-card class="mb-25 text-center tagus-card">
+      <mat-card-header class="mb-0">
+        <!--<mat-checkbox
+          *ngIf="user.isActive"
+          class="fm-checkbox"
+          value="{{ user.id }}"
+          (change)="this.addToChecked($event)"
+        ></mat-checkbox>-->
+        <button
+          type="button"
+          mat-button
+          class="position-relative dot-btn p-0 bg-transparent border-none"
+          [matMenuTriggerFor]="monthMenu"
+        >
+          <i class="ri-more-fill"></i>
+        </button>
+        <mat-menu
+          #monthMenu="matMenu"
+          class="dotMenu monthMenu"
+          xPosition="before"
+        >
+          <!--<button
+            mat-menu-item
+            type="button"
+            class="bg-transparent border-none position-relative"
+            routerLink="/user-management/update/{{ user.id }}"
+          >
+            <i class="ri-edit-line"></i> Edit
+          </button>-->
+          <button
+            mat-menu-item
+            type="button"
+            class="bg-transparent border-none position-relative"
+            (click)="this.deleteUsers(user, user.isActive ? false : true)"
+          >
+            <i class="ri-{{ user.isActive ? 'pause' : 'play' }}-line"></i>
+            {{ user.isActive ? "HOLD" : "ACTIVATE" }}
+          </button>
+        </mat-menu>
+      </mat-card-header>
+      <mat-card-content>
+        <img
+          src="{{ user.picture }}"
+          class="rounded-circle mb-15"
+          width="120"
+          alt="assets/img/user/user12.jpg"
+        />
+        <span class="badge-{{ user.isActive ? 'success' : 'danger' }}">
+          {{ user.isActive ? "ACTIVE" : "HOLD" }}
+        </span>
+        <h5 class="mt-10 mb-10 fw-semibold">
+          {{ user.fullName || "No Name" }}
+        </h5>
+        <span class="d-block muted-color">{{ user.phoneNumber }}</span>
+        <span class="d-block muted-color">{{ user.createdAt | date }}</span>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
